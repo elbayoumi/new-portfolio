@@ -23,7 +23,7 @@ class MainController extends Controller
             'subject' => 'required|string|max:255',
             'message' => 'required|string',
         ]);
-        
+        Main::create($request->all());
     }
     /**
      * Show the form for creating a new resource.
