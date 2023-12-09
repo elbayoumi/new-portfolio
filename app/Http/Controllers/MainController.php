@@ -12,12 +12,18 @@ class MainController extends Controller
      */
     public function index()
     {
-    return view('index');
-
+        return view('index');
     }
-    public function storeMessage()
+    public function storeMessage(Request $request)
     {
-        //
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'subject' => 'required|string|max:255',
+            'message' => 'required|string',
+        ]);
+        
     }
     /**
      * Show the form for creating a new resource.
