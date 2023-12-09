@@ -16,15 +16,21 @@ class MainController extends Controller
     }
     public function storeMessage(Request $request)
     {
+        try {
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|email|max:255',
+                'subject' => 'required|string|max:255',
+                'message' => 'required|string',
+            ]);
 
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'subject' => 'required|string|max:255',
-            'message' => 'required|string',
-        ]);
-        Main::create($request->all());
+            Main::create($request->all());
+        } catch (\Exception $e) {
+            // Log or dd($e) to check for any exceptions
+            dd($e->getMessage());
+        }
     }
+
     /**
      * Show the form for creating a new resource.
      */
