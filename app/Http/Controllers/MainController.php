@@ -17,17 +17,19 @@ class MainController extends Controller
     public function storeMessage(Request $request)
     {
         try {
-            $request->validate([
+           $data= $request->validate([
                 'name' => 'required|string|max:255',
                 'email' => 'required|email|max:255',
                 'subject' => 'required|string|max:255',
                 'message' => 'required|string',
             ]);
 
-            Main::create($request->all());
+            Main::create($data);
+            return redirect()->back()->with('success', 'Message has been stored successfully.');
+
         } catch (\Exception $e) {
             // Log or dd($e) to check for any exceptions
-            dd($e->getMessage());
+            return redirect()->back()->with('error', 'An error occurred while storing the message.');
         }
     }
 
